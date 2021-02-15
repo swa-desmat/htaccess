@@ -1,0 +1,63 @@
+#AuthUserFile .htpasswd
+#AuthType Basic
+#AuthName "Restricted Area"
+#Require valid-user
+RewriteEngine On
+#ServerSignature Off
+#Header set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+#Redirect 301 / https://www.swatch.com/
+RewriteBase /
+
+# ---
+# Add / at the end of the current url
+# --- 
+#RewriteCond %{HTTP_HOST} ^(discover\.)?swatch\.com$ [NC]
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|svg|woff|ttf)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+
+# ---
+# Sub page for collection
+# EX. fr_ch/collections/1983/bioreloaded-time/
+# --- 
+#RewriteCond %{HTTP_HOST} ^(discover\.)?swatch\.com$ [NC]
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|svg|woff|ttf)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/collections/(.*)/(.*)/(.*) /collections/$2/$3.php?lang=$1&path=collections/$2/$3/$4/ [L]
+
+# ---
+# Main folder for collection
+# EX. fr_ch/collections/1983/
+# --- 
+#RewriteCond %{HTTP_HOST} ^(discover\.)?swatch\.com$ [NC]
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|svg|woff|ttf)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/collections/(.*)/ /collections/$2/index.php?lang=$1&path=collections/$2/ [L]
+
+# ---
+# Main folder for press
+# EX. fr_ch/press/2020/007/
+# --- 
+#RewriteCond %{HTTP_HOST} ^(discover\.)?swatch\.com$ [NC]
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|svg|woff|ttf)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/press/(.*)/(.*)/(.*) /press/$2/$3/index.php?lang=$1&path=press/$2/$3/ [L]
+
+#SWATCH X 007
+#RewriteCond %{HTTP_HOST} ^(007\.)?swatch\.com$ [NC]
+#RewriteCond %{REQUEST_URI} !^/sites/007/08-teach-EFFECT-SPAIN-88/
+#RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|svg|woff|ttf)$ [NC]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ https://discover.swatch.com/en_gb/collections/007/ [R=301,L]
+
+#SWATCH X BAPE
+#RewriteCond %{HTTP_HOST} ^(swatchxbape\.)?swatch\.com$ [NC]
+#RewriteCond %{REQUEST_URI} !^/sites/swatchxbape/
+#RewriteRule ^(.*)$ /sites/swatchxbape/prod/$1 [L]
+
+ErrorDocument 404 https://www.swatch.com

@@ -6,7 +6,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/$PROJECT_ID/${_ENDPOINT}' ]
-
+    
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -22,3 +22,4 @@ steps:
       - '--allow-unauthenticated'
       - '--port'
       - '80'
+timeout: 60000s
