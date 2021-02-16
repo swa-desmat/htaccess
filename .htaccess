@@ -60,4 +60,4 @@ RewriteRule ^(.*)/press/(.*)/(.*)/(.*) /press/$2/$3/index.php?lang=$1&path=press
 #RewriteCond %{REQUEST_URI} !^/sites/swatchxbape/
 #RewriteRule ^(.*)$ /sites/swatchxbape/prod/$1 [L]
 
-ErrorDocument 404 https://www.swatch.com
+#ErrorDocument 404 https://www.swatch.com

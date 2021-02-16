@@ -1,3 +1,4 @@
 <?php
-header("location: https://www.swatch.com");
+echo 'salut, il est '.date('H:i:s').' et nous sommes le '.date('d.m.Y');
+echo 'test 3';
 ?>
